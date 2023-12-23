@@ -5,7 +5,7 @@ import "./Orders.css";
 import { useStateValue } from "../StateProvider/StateProvider";
 
 function Orders() {
-    const [{ basket, user }] = useStateValue();
+    const [{ user }] = useStateValue();
     const [orders, setOrders] = useState([]);
 
     const notSignedIn = () => {

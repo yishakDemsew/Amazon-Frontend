@@ -10,6 +10,7 @@ function Homepage() {
                     <img
                         className="home__image"
                         src="https://images-na.ssl-images-amazon.com/images/G/01/AMAZON_FASHION/2020/journeys/NWIxMGIwNWIt/NWIxMGIwNWIt-NjE4MWNhNDQt-w3000._CB417433465_.jpg"
+                        alt="homeImage"
                     />
                 </div>
 
@@ -23,7 +24,7 @@ function Homepage() {
                     />
                     <Product
                         id="494548094"
-                        title="JavaScript: The Definitive Guide: Master the World's Most-Used Programming Language 7th Edition"
+                        title="JS: The Definitive Guide: Master the World's Most-Used Programming Language 7th Edition"
                         price={45.46}
                         rating={6}
                         image="https://images-na.ssl-images-amazon.com/images/I/51wijnc-Y8L._SX379_BO1,204,203,200_.jpg"

@@ -51,7 +51,7 @@ import { useStateValue } from "../StateProvider/StateProvider";
 import { useNavigate } from "react-router-dom";
 
 function Subtotal() {
-    let [{ basket }, dispatch] = useStateValue();
+    let [{ basket }] = useStateValue();
     const navigate = useNavigate();
 
     const getBasketTotal = (basket) =>

@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useStateValue } from "../StateProvider/StateProvider";
 import CheckoutProduct from "../CheckoutProduct/CheckoutProduct";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-// import CurrencyFormat from "react-currency-format";
 import numeral from "numeral"; // Import numeral
 
 import axios from "../axios";
@@ -47,7 +46,7 @@ function Payment() {
         e.preventDefault();
         setProcessing(true);
 
-        const payload = await stripe
+        await stripe
             .confirmCardPayment(clientSecret, {
                 payment_method: {
                     card: elements.getElement(CardElement),

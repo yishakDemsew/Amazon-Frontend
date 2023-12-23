@@ -3,7 +3,7 @@ import Checkout from "./Checkout/Checkout";
 import Header from "./Header/Header";
 import Homepage from "./Homepage/Homepage";
 import Login from "./Login/Login";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useStateValue } from "./StateProvider/StateProvider";
 import { useEffect } from "react";
 import { auth } from "./firebase";
@@ -36,7 +36,9 @@ function App() {
                 });
             }
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
     return (
         <div className="App">
             <Routes>
