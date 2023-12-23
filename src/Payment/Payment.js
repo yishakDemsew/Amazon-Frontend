@@ -41,7 +41,7 @@ function Payment() {
         getClientSecret();
     }, [basket]);
 
-    console.log("the secrete is 2 : ", clientSecret);
+    // console.log("the secrete is 2 : ", clientSecret);
 
     // const handleSubmit = async (e) => {
     //     e.preventDefault();
@@ -80,6 +80,7 @@ function Payment() {
     // };
 
     // with try/catch
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setProcessing(true);
