@@ -43,40 +43,90 @@ function Payment() {
 
     // console.log("the secrete is : ", clientSecret);
 
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+    //     setProcessing(true);
+
+    //     await stripe
+    //         .confirmCardPayment(clientSecret, {
+    //             payment_method: {
+    //                 card: elements.getElement(CardElement),
+    //             },
+    //         })
+    //         .then(({ paymentIntent }) => {
+    //             // payment confirmation
+
+    //             db.collection("users")
+    //                 .doc(user?.uid)
+    //                 .collection("orders")
+    //                 .doc(paymentIntent.id)
+    //                 .set({
+    //                     basket: basket,
+    //                     amount: paymentIntent.amount,
+    //                     created: paymentIntent.created,
+    //                 });
+
+    //             setSucceeded(true);
+    //             setError(null);
+    //             setProcessing(false);
+
+    //             dispatch({
+    //                 type: "EMPTY_BASKET",
+    //             });
+
+    //             // history.replace("/orders");
+    //             navigate("/orders");
+    //         });
+    // };
+
+    // with try/catch
     const handleSubmit = async (e) => {
         e.preventDefault();
         setProcessing(true);
 
-        await stripe
-            .confirmCardPayment(clientSecret, {
+        try {
+            const result = await stripe.confirmCardPayment(clientSecret, {
                 payment_method: {
                     card: elements.getElement(CardElement),
                 },
-            })
-            .then(({ paymentIntent }) => {
-                // payment confirmation
+            });
 
-                db.collection("users")
-                    .doc(user?.uid)
-                    .collection("orders")
-                    .doc(paymentIntent.id)
-                    .set({
-                        basket: basket,
-                        amount: paymentIntent.amount,
-                        created: paymentIntent.created,
-                    });
-
-                setSucceeded(true);
-                setError(null);
+            if (result.error) {
+                // Handle error
+                setError(`Payment failed: ${result.error.message}`);
                 setProcessing(false);
+                return;
+            }
 
-                dispatch({
-                    type: "EMPTY_BASKET",
+            // Payment was successful
+            const paymentIntent = result.paymentIntent;
+
+            db.collection("users")
+                .doc(user?.uid)
+                .collection("orders")
+                .doc(paymentIntent.id)
+                .set({
+                    basket: basket,
+                    amount: paymentIntent.amount,
+                    created: paymentIntent.created,
                 });
 
-                // history.replace("/orders");
-                navigate("/orders");
+            setSucceeded(true);
+            setError(null);
+            setProcessing(false);
+
+            dispatch({
+                type: "EMPTY_BASKET",
             });
+
+            navigate("/orders");
+        } catch (error) {
+            console.error("Error processing payment:", error);
+            setError(
+                "There was an error processing your payment. Please try again."
+            );
+            setProcessing(false);
+        }
     };
 
     const handleChange = (e) => {
